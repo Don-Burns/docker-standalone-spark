@@ -75,6 +75,8 @@ RUN python${PYTHON_VERSION} -m pip install findspark
 # RUN apt-get update && \
 #     apt-get install --no-install-recommends -y librdkafka-dev gcc g++
 # RUN python${PYTHON_VERSION} -m pip install confluent-kafka
+# GIT
+RUN apt-get install --no-install-recommends -y git
 
 # spark env
 ENV SPARK_MASTER_HOST=spark-master
