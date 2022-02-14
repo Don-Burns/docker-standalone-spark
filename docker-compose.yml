@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+  spark:
+    build: .
+    ports: 
+      - '127.0.0.1:8080:8080'
+      - '127.0.0.1:4042:4042' # spark UI
+      - '127.0.0.1:2181:2181' # MSK
+    volumes:
+      - ../kafka_spark_poc/:/app ## this to be made less jank for proper sharing i.e. refer to local dirs
+    #prevent container from just exiting once built
+    command: tail -f /dev/null
+    # start standalone
+    # command:
+    #   bash sbin/start-master.sh
+
