@@ -56,18 +56,17 @@ RUN apt-get update && \
     apt-get install --no-install-recommends -y python3-pip python${PYTHON_VERSION}-dev build-essential
 RUN apt-get update && \
     python${PYTHON_VERSION} -m pip install --upgrade setuptools
-RUN python${PYTHON_VERSION} -m pip install wheel 
-# COPY requirements.txt requirements.txt
-# RUN python${PYTHON_VERSION} -m pip install pyspark
-RUN python${PYTHON_VERSION} -m pip install avro boto3 kafka-python 
-# RUN apt-get install --no-install-recommends -y python3-pip python${PYTHON_VERSION}-dev 
-RUN python${PYTHON_VERSION} -m pip install python-schema-registry-client  
-#jupyter notebooks
 RUN apt-get install --no-install-recommends -y libzmq3-dev
-RUN python${PYTHON_VERSION} -m pip install ipykernel  
 RUN apt install --no-install-recommends -y libffi-dev
-RUN python${PYTHON_VERSION} -m pip install jupyter
-RUN python${PYTHON_VERSION} -m pip install findspark
+# RUN python${PYTHON_VERSION} -m pip install wheel 
+# RUN python${PYTHON_VERSION} -m pip install pyspark
+# RUN python${PYTHON_VERSION} -m pip install avro boto3 kafka-python 
+# RUN apt-get install --no-install-recommends -y python3-pip python${PYTHON_VERSION}-dev 
+# RUN python${PYTHON_VERSION} -m pip install python-schema-registry-client  
+#jupyter notebooks
+# RUN python${PYTHON_VERSION} -m pip install ipykernel  
+# RUN python${PYTHON_VERSION} -m pip install jupyter
+# RUN python${PYTHON_VERSION} -m pip install findspark
 ##for kakfa-confluent, might be resolved if I can get to higher python version >3.6
 # RUN add-apt-repository "deb [arch=amd64] https://packages.confluent.io/deb/7.0 stable main" \
 #     && add-apt-repository "deb https://packages.confluent.io/clients/deb $(lsb_release -cs) main" \
@@ -75,8 +74,8 @@ RUN python${PYTHON_VERSION} -m pip install findspark
 # RUN apt-get update && \
 #     apt-get install --no-install-recommends -y librdkafka-dev gcc g++
 # RUN python${PYTHON_VERSION} -m pip install confluent-kafka
-# GIT
-RUN apt-get install --no-install-recommends -y git
+# COPY requirements.txt requirements.txt
+# RUN python${PYTHON_VERSION} -m pip install -r requirements.txt
 
 # spark env
 ENV SPARK_MASTER_HOST=spark-master
@@ -107,5 +106,3 @@ CMD ["bash"]
 # check if you need this so that the container does not stop, on kubernetes I have to use this.
 # while true ; do sleep 2 ; done
 # TODO upgrade ubuntu image from python 3.6 -> 3.8 rather than having both installed. -> need to have pip correctly map to the new version also to avoid needing python -m pip install ABC
-
-#export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/bin/java
